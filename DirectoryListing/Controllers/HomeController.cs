@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using DirectoryListing.Library;
 
 namespace DirectoryListing.Controllers
 {
@@ -16,7 +12,7 @@ namespace DirectoryListing.Controllers
     {
         #region Constants
 
-        private static readonly string rootDirectory = Path.GetFullPath(Path.Combine(ConfigurationManager.AppSettings["RootDirectory"], string.Empty));
+        static readonly string rootDirectory = Path.GetFullPath(Path.Combine(ConfigurationManager.AppSettings["RootDirectory"], string.Empty));
 
         #endregion Constants
 
@@ -30,9 +26,11 @@ namespace DirectoryListing.Controllers
             if (!fullPath.StartsWith(rootDirectory, StringComparison.Ordinal)) {
                 return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             }
+
             if (System.IO.File.Exists(fullPath)) {
                 return new FilePathResult(fullPath, MimeMapping.GetMimeMapping(fullPath));
             }
+
             if (!Directory.Exists(fullPath)) {
                 return HttpNotFound();
             }
@@ -46,12 +44,15 @@ namespace DirectoryListing.Controllers
             if (!fullPath.StartsWith(rootDirectory, StringComparison.Ordinal)) {
                 return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             }
+
             if (System.IO.File.Exists(fullPath)) {
                 return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             }
+
             if (!Directory.Exists(fullPath)) {
                 return HttpNotFound();
             }
+
             string zipFullPath = HttpContext.Server.MapPath(Path.Combine("~/App_Data/Zip", path.TrimEnd('/') + ".zip"));
             var zipFileInfo = new FileInfo(zipFullPath);
             if (!System.IO.File.Exists(zipFullPath)) {

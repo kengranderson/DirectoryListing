@@ -116,7 +116,7 @@ public static class IconTools
     /// Contains information about a file object.
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    private struct SHFILEINFO
+    struct SHFILEINFO
     {
         /// <summary>
         /// A handle to the icon that represents the file.
@@ -149,7 +149,7 @@ public static class IconTools
     /// <summary>
     /// Contains the native Win32 functions.
     /// </summary>
-    private class NativeMethods
+    class NativeMethods
     {
         #region Static Methods
 

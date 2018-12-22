@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
 using System.Web;
 
 namespace DirectoryListing.Models
@@ -67,12 +65,12 @@ namespace DirectoryListing.Models
         private static string BytesToSize(long length)
         {
             const int scale = 1024;
-            string[] orders = new string[] { "EiB", "PiB", "TiB", "GiB", "MiB", "KiB", "B" };
+            string[] orders = { "EB", "PB", "TB", "GB", "MB", "KB", "B" };
             long max = (long)Math.Pow(scale, orders.Length - 1);
 
             foreach (string order in orders) {
                 if (length >= max) {
-                    return string.Format("{0:##.##} {1}", decimal.Divide(length, max), order);
+                    return $"{decimal.Divide(length, max):##.##} {order}";
                 }
                 max /= scale;
             }
