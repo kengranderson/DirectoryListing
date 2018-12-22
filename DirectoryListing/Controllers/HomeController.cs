@@ -37,7 +37,7 @@ namespace DirectoryListing.Controllers
                 return HttpNotFound();
             }
 
-            return View(new DirectoryListing.Models.Directory(rootDirectory, fullPath));
+            return View(new Models.Directory(rootDirectory, fullPath));
         }
 
         public ActionResult Zip(string path)
